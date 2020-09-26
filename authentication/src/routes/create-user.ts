@@ -25,7 +25,7 @@ router.post(
 
     user.id = uuid();
     user.email = email;
-    user.password = hashSync(password, 8);
+    user.password = hashSync(password, 10);
     if (name) user.name = name;
 
     return res.status(201).send(await getRepository(User).save(user));
