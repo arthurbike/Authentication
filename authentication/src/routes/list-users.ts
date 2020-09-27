@@ -5,7 +5,14 @@ import { User } from "../entities/users/User";
 const router = Router();
 
 router.get("/users", async (req: Request, res: Response) => {
-  return res.status(200).send(await getRepository(User).find());
+  const remapedUsers = (await getRepository(User).find()).map((user) => {
+    return {
+      id: user.id,
+      email: user.email,
+    };
+  });
+
+  return res.status(200).send(remapedUsers);
 });
 
 export { router as listUsersRoute };

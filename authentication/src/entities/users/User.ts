@@ -14,6 +14,6 @@ export class User {
   @Column({ type: "varchar", length: 100, nullable: false })
   password!: string;
 
-  @Column({ type: "varchar", length: 300, nullable: true })
+  @Column({ type: "varchar", length: 350, nullable: true })
   token?: string;
 }
