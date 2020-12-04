@@ -1,6 +1,7 @@
 import ApplicationError from "./ApplicationError";
 
 class NotFoundError extends ApplicationError {
+  messages?: string[];
   status = 404;
 
   constructor() {

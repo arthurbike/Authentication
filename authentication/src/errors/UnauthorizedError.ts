@@ -1,6 +1,7 @@
 import ApplicationError from "./ApplicationError";
 
 class UnauthorizedError extends ApplicationError {
+  messages?: string[];
   status = 401;
 
   constructor(message?: string) {

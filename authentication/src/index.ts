@@ -1,31 +1,32 @@
 import "reflect-metadata";
-import "./database";
 import { app } from "./app";
+import { Connection } from "typeorm";
+import { connect } from "./repositories";
+import "./utils/checkEnvironmentVariables";
 
 const SERVER_PORT = process.env.SERVER_PORT || 3000;
 
-app;
+let database: Connection;
 
-if (!process.env.DB_HOST) {
-  throw new Error("Enviroment variable DB_HOST not setted");
-}
+const start = async () => {
+  try {
+    database = await connect();
+    app;
 
-if (!process.env.DB_USER) {
-  throw new Error("Enviroment variable DB_USER not setted");
-}
+    app.listen(SERVER_PORT, () => {
+      console.log(`Server listening on port ${SERVER_PORT}`);
+    });
+  } catch (err) {
+    console.error(err);
+    await finish();
+  }
+};
 
-if (!process.env.DB_PASSWORD) {
-  throw new Error("Enviroment variable DB_PASSWORD not setted");
-}
+const finish = async () => {
+  if (database) {
+    await database.close();
+  }
+  process.exit();
+};
 
-if (!process.env.DB_PORT) {
-  throw new Error("Enviroment variable DB_PORT not setted");
-}
-
-if (!process.env.JWT_SECRET) {
-  throw new Error("Enviroment variable JWT_SECRET not setted");
-}
-
-app.listen(SERVER_PORT, () => {
-  console.log(`Server listening on port ${SERVER_PORT}`);
-});
+start();

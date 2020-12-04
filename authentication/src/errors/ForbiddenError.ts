@@ -1,11 +1,12 @@
 import ApplicationError from "./ApplicationError";
 
 class ForbiddenError extends ApplicationError {
+  messages?: string[];
   status = 403;
 
-  constructor() {
+  constructor(message?: string) {
     super();
-    this.message = "Forbidden";
+    this.message = message || "Forbidden";
   }
 }
 

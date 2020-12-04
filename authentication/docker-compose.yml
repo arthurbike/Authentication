@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:13.0-alpine
+    container_name: db
+    environment:
+      POSTGRES_PASSWORD: batatinha
+      POSTGRES_DB: authentication
+    ports:
+      - 5432:5432
+
+  api:
+    build: .
+    container_name: authentication
+    ports:
+      - 3000:3000
+    environment:
+      ENVIRONMENT: development
